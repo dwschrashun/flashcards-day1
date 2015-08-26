@@ -12,15 +12,16 @@ app.controller("FlashCardController", function ($scope) {
 			$scope.answeredCorrectly = false;
 		}
 		console.log("answered correctly:", $scope.answeredCorrectly);
-		$scope.flashCard.answered = true;
-		console.log("answered? ", $scope.flashCard.answered);
+		$scope.currentFlashCard.answered = true;
+		// console.log("answered? ", $scope.flashCard.answered);
 	};
 
 });
 
 app.controller('MainController', function ($scope) {
+    $scope.index = 0;
     $scope.flashCards = [{
-        question: 'ZWhat is Angular?',
+        question: 'What is Angular?',
         answers: [{
             text: 'A front-end framework for great power!',
             correct: true
@@ -59,4 +60,17 @@ app.controller('MainController', function ($scope) {
         }],
         answered: false
     }];
+    $scope.currentFlashCard = $scope.flashCards[$scope.index];
+    $scope.renderNext = function () {
+        console.log("index before: ", $scope.index);
+        $scope.index++;
+        if ($scope.index !== $scope.flashCards.length) {
+            $scope.currentFlashCard = $scope.flashCards[$scope.index];
+            console.log("index after: ", $scope.index);
+        }
+        else {
+            console.log("quiz complete");
+            //render quiz complete
+        }
+    }
 });

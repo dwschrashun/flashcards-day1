@@ -11,17 +11,18 @@
 <body>
     <div ng-app="FlashCards">
         <div ng-controller="MainController">
-            <div class="flash-card" ng-repeat="flashCard in flashCards | orderBy: 'question'">
-                <h1>{{ flashCard.question }}</h1>
+            <div class="flash-card">
+                <h1>{{ currentFlashCard.question }}</h1>
                 <div ng-controller='FlashCardController'>
                     <ul class="flash-card-answers">
-                        <li class="flash-card-answer" ng-repeat="answer in flashCard.answers" ng-click="answerQuestion(answer.correct)">
+                        <li class="flash-card-answer" ng-repeat="answer in currentFlashCard.answers" ng-click="answerQuestion(answer.correct)">
                             {{ answer.text | uppercase }}
                         </li>
                     </ul>
-                    <h2 class="answer-feedback" ng-show="flashCard.answered" ng-class="{correct: answeredCorrectly === true, incorrect: answeredCorrectly === false}">
+                    <h2 class="answer-feedback" ng-show="currentFlashCard.answered" ng-class="{correct: answeredCorrectly === true, incorrect: answeredCorrectly === false}">
 				    	<span ng-show="answeredCorrectly">Yeah, you got it right!</span>
 				    	<span ng-show="!answeredCorrectly">Nope, you got it wrong.</span>
+                        <button ng-click="renderNext()">NEXT QUESTION</button>
 					</h2>
                 </div>
             </div>
